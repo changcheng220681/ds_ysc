@@ -26,13 +26,13 @@ public class LoginController {
         //用户对象
         User user = (User) spring_security_context.getAuthentication().getPrincipal();
         String username1 = user.getUsername();
-        System.out.println("从Session中获取的用户对象中再次获取的用户名：" + username1);
+       // System.out.println("从Session中获取的用户对象中再次获取的用户名：" + username1);
         //直接获取用户对象中的用户名
         String username = spring_security_context.getAuthentication().getName();
-        System.out.println("从Session中直接获取的用户名：" + username);
+       // System.out.println("从Session中直接获取的用户名：" + username);
         //2:使用SecurityContextHolder 工具类 获取用户名或是用户名对象 当前线程
         String username2 = SecurityContextHolder.getContext().getAuthentication().getName();
-        System.out.println("从当前线程中获取的用户名：" + username2);
+       // System.out.println("从当前线程中获取的用户名：" + username2);
         //3:jsp页面  ${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username}
         //4:jsp页面  <security:authentication  name="principal.username" />
         Map<String,Object> map = new HashMap<>();
