@@ -47,7 +47,9 @@ public class BrandServiceImpl implements BrandService {
     //保存
     @Override
     public void add(Brand brand) {
-        brandDao.insertSelective(brand);
+        brand.setAuditStatus("0");
+        brandDao.insert(brand);
+       // brandDao.insertSelective(brand);
         //insert into tb_tt (id,name,98个) values (3,haha,null 98个)  执行的效果是一样的 但是执行的效率是一样的
         //insert into tb_tt (id,name) values (3,haha)
         //update tb_tt set id = #{id},name= ......   where id
@@ -103,6 +105,7 @@ public class BrandServiceImpl implements BrandService {
 
         //查询结果集
         Page<Brand> page = (Page<Brand>) brandDao.selectByExample(brandQuery);
+        System.out.println(page.getResult());
         //总条数
         //结果集 select * from tb_brand  limit 开始行,每页数
         return new PageResult(page.getTotal(), page.getResult());
@@ -113,5 +116,15 @@ public class BrandServiceImpl implements BrandService {
     public List<Map> selectOptionList() {
         return brandDao.selectOptionList();
     }
-
+    @Override
+    public void updateStatus(Long[] ids, String status) {
+        Brand brand = new Brand();
+        brand.setAuditStatus(status);
+        if (ids!=null){
+            for (Long id : ids) {
+                brand.setId(id);
+                brandDao.updateByPrimaryKeySelective(brand);
+            }
+        }
+    }
 }
