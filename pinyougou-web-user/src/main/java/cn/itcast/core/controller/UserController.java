@@ -73,7 +73,7 @@ public class UserController {
     public List<OrderVo> findByOrderList(String status) {
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
         List<OrderVo> orderVoList=userService.findByOrderList(status,name);
-        System.out.println("查询成功");
+       // System.out.println("查询成功");
         return orderVoList;
     }
 }
