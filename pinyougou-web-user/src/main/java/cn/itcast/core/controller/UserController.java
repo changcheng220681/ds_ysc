@@ -76,4 +76,8 @@ public class UserController {
        // System.out.println("查询成功");
         return orderVoList;
     }
+
+    //添加个人信息
+
+    //查询一个人信息
 }

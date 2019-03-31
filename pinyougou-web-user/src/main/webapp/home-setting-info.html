@@ -10,9 +10,15 @@
 
     <link rel="stylesheet" type="text/css" href="css/webbase.css" />
     <link rel="stylesheet" type="text/css" href="css/pages-seckillOrder.css" />
+
+	<script type="text/javascript" src="plugins/angularjs/angular.min.js"></script>
+	<script type="text/javascript" src="js/base.js"></script>
+	<script type="text/javascript" src="js/service/loginService.js"></script>
+	<script type="text/javascript" src="js/controller/indexController.js"></script>
+
 </head>
 
-<body>
+<body ng-app="pinyougou" ng-controller="indexController" ng-init="showName()">
     <!-- 头部栏位 -->
     <!--页面顶部-->
 <div id="nav-bottom">
@@ -210,11 +216,11 @@ $(function(){
                                     <div class="control-group">
                                         <label for="inputName" class="control-label">昵称：</label>
                                         <div class="controls">
-                                            <input type="text" id="inputName" name="email" placeholder="昵称">
+                                            <input type="text" ng-model="entity.nickName" id="inputName" name="email" placeholder="昵称">
                                         </div>
                                     </div>
                                     <div class="control-group">
-                                        <label for="inputGender" class="control-label">性别：</label>
+                                        <label for="inputGender" ng-model="entity.sex" class="control-label">性别：</label>
                                         <div class="controls">
                                             <label data-toggle="radio" class="radio-pretty inline">
                                             <input type="radio" name="gender" value="1"><span>男</span>
@@ -227,9 +233,9 @@ $(function(){
                                     <div class="control-group">
                                         <label for="inputPassword" class="control-label">生日：</label>
                                         <div class="controls">
-                                            <select id="select_year2" rel="1990"></select>年
-                                            <select id="select_month2" rel="4"></select>月
-                                            <select id="select_day2" rel="3"></select>日
+                                            <select ng-model="entity.birthdayYear" id="select_year2" rel="1990"></select>年
+                                            <select ng-model="entity.birthdayMonth" id="select_month2" rel="4"></select>月
+                                            <select ng-model="entity.birthdayDay" id="select_day2" rel="3"></select>日
                                         </div>
                                     </div>
 
@@ -239,13 +245,13 @@ $(function(){
                                         <div class="controls">
                                             <div data-toggle="distpicker">
                                                 <div class="form-group area">
-                                                    <select class="form-control" id="province1"></select>
+                                                    <select class="form-control" ng-model="entity.addressProvince" id="province1"></select>
                                                 </div>
                                                 <div class="form-group area">
-                                                    <select class="form-control" id="city1"></select>
+                                                    <select class="form-control" ng-model="entity.addressCity" id="city1"></select>
                                                 </div>
                                                 <div class="form-group area">
-                                                    <select class="form-control" id="district1"></select>
+                                                    <select class="form-control" ng-model="entity.addressDistrict" id="district1"></select>
                                                 </div>
                                             </div>
                                         </div>
@@ -253,7 +259,7 @@ $(function(){
                                     <div class="control-group">
                                         <label for="inputJob" class="control-label">职业：</label>
                                         <div class="controls"><span class="sui-dropdown dropdown-bordered select"><span class="dropdown-inner"><a role="button" data-toggle="dropdown" href="#" class="dropdown-toggle">
-                                                <input name="job" type="hidden" data-rules="required"><i class="caret"></i><span>请选择</span></a>
+                                                <input name="job" ng-model="entity.userJob" type="hidden" data-rules="required"><i class="caret"></i><span>请选择</span></a>
                                             <ul id="menu4" role="menu" aria-labelledby="drop4" class="sui-dropdown-menu">
                                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0);" value="bj">程序员</a></li>
                                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0);" value="sb">产品经理</a></li>
@@ -266,7 +272,7 @@ $(function(){
                                     <div class="control-group">
                                         <label for="sanwei" class="control-label"></label>
                                         <div class="controls">
-                                            <button type="submit" class="sui-btn btn-primary">立即注册</button>
+                                            <button type="submit" ng-click="save()" class="sui-btn btn-primary">立即保存</button>
                                         </div>
                                     </div>
                                 </form>

@@ -7,5 +7,14 @@ app.service('loginService',function($http){
 	this.findByOrderList=function (status) {
 		return $http.get('../user/findByOrderList.do?status='+status);
     }
-	
+    this.add = function(entity){
+        return $http.post("../brand/add.do",entity);
+    }
+    this.update=function(entity){
+        return $http.post("../brand/update.do",entity);
+    }
+    this.findOne=function(){
+        return $http.get("../brand/findOne.do");
+    }
+
 });
