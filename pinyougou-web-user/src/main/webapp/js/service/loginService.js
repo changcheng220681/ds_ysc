@@ -4,5 +4,8 @@ app.service('loginService',function($http){
 	this.showName=function(){
 		return $http.get('../login/name.do');
 	}
+	this.findByOrderList=function (status) {
+		return $http.get('../user/findByOrderList.do?status='+status);
+    }
 	
 });
