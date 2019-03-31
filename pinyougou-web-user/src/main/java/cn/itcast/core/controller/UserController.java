@@ -1,13 +1,18 @@
 package cn.itcast.core.controller;
 
 import cn.itcast.common.utils.PhoneFormatCheckUtils;
+import cn.itcast.core.pojo.order.Order;
 import cn.itcast.core.pojo.user.User;
 import cn.itcast.core.service.UserService;
 import com.alibaba.dubbo.config.annotation.Reference;
 import entity.Result;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import vo.OrderVo;
+
+import java.util.List;
 
 /**
  * 用户管理
@@ -59,5 +64,16 @@ public class UserController {
 
 
 
+    }
+    //查询用户订单详情表
+    /**
+     * 状态：1、未付款，2、已付款，3、未发货，4、已发货，5、交易成功，6、交易关闭,7、待评价
+     */
+    @RequestMapping("/findByOrderList")
+    public List<OrderVo> findByOrderList(String status) {
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        List<OrderVo> orderVoList=userService.findByOrderList(status,name);
+        System.out.println("查询成功");
+        return orderVoList;
     }
 }

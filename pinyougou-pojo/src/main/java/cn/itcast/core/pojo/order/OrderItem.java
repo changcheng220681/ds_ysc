@@ -51,6 +51,18 @@ public class OrderItem implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+
+    //规格
+    private String spec;
+
+    public String getSpec() {
+        return spec;
+    }
+
+    public void setSpec(String spec) {
+        this.spec = spec;
+    }
+
     public Long getId() {
         return id;
     }
