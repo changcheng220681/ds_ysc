@@ -111,7 +111,10 @@ public class UserServiceImpl implements  UserService {
     public List<OrderVo> findByOrderList(String status,String name) {
         List<OrderVo> orderVoList = new ArrayList<>();
         OrderQuery orderQuery = new OrderQuery();
-        orderQuery.createCriteria().andUserIdEqualTo(name);
+        OrderQuery.Criteria criteria = orderQuery.createCriteria().andUserIdEqualTo(name);
+        if (!"0".equals(status)){
+            criteria.andStatusEqualTo(status);
+        }
         List<Order> orderList = orderDao.selectByExample(orderQuery);
         if (orderList==null || orderList.size()==0){
             return null;
