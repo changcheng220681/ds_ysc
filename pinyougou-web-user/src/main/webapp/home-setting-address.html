@@ -20,7 +20,7 @@
 
 </head>
 
-<body ng-app="pinyougou" ng-controller="indexController" ng-init="showName();">
+<body ng-app="pinyougou" ng-controller="addressController" ng-init="findByProvinces();findAddressList()">
     <!-- 头部栏位 -->
     <!--页面顶部-->
 <div id="nav-bottom">
@@ -213,27 +213,28 @@ $(function(){
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>刘田田</td>
-                                        <td>北京 北京市 海淀区 上地街道东北旺西路8号中关村软件园9号楼</td>
-                                        <td>1774***********4</td>
+
+								<!--<li class="addr-item">
+									<div ng-repeat="address in addressList">
+										<div class="con name {{isSeletedAddress(address)?'selected':''}}"><a href="javascript:;" ng-click="selectAddress(address)">{{address.contact}}<span title="点击取消选择">&nbsp;</a></div>
+										<div class="con address">{{address.address}}<span>{{address.mobile}}</span>
+											<span class="base" ng-if="address.isDefault=='1'">默认地址</span>
+											<span class="edittext"><a data-toggle="modal" data-target=".edit" data-keyboard="false" >编辑</a>&nbsp;&nbsp;<a href="javascript:;">删除</a></span>
+										</div>
+										<div class="clearfix"></div>
+									</div>
+								</li>-->
+
+                                    <tr ng-repeat="myAddress in addressList">
+                                        <td>{{myAddress.contact}}</td>
+                                        <td>北京 北京市 海淀区 {{myAddress.address}}</td>
+                                        <td>{{myAddress.mobile}}</td>
                                         <td>
-                                            <a href="#">编辑</a>
-                                            <a href="#">删除</a>
-                                            默认地址
+											<a data-toggle="modal" data-target=".edit" data-keyboard="false"   class="sui-btn  btn-info add-new" ng-click="findById(myAddress.id)">编辑</a>
+                                            <a    class="sui-btn  btn-info add-new" ng-click="">删除</a>
+											<a   class="sui-btn  btn-info add-new" ng-click="updateIsDefault()"><span class="base" ng-if="address.isDefault=='1'">默认地址</span></a>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>沈沉</td>
-                                        <td>北京 北京市 海淀区 上地街道东北旺西路8号中关村软件园9号楼</td>
-                                        <td>1774***********4</td>
-                                        <td>
-                                            <a href="#">编辑</a>
-                                            <a href="#">删除</a>
-                                            <a href="#">设为默认</a>
-                                        </td>
-                                    </tr>
-                                    
                                 </tbody>
                             </table>                          
                         </div>
@@ -250,7 +251,7 @@ $(function(){
                                             <div class="control-group">
                                             <label class="control-label">收货人：</label>
                                             <div class="controls">
-                                                <input type="text" class="input-medium">
+                                                <input type="text" class="input-medium" ng-model="entity.contact">
                                             </div>
                                         </div>
                                         <div class="control-group">
@@ -258,13 +259,13 @@ $(function(){
                                             <div class="controls">
                                                 <div data-toggle="distpicker">
                                                 <div class="form-group area">
-                                                    <select class="form-control" id="province1"></select>
+													<select class="form-control" ng-model="entity.provinceid" ng-options="provinces.provinceid as provinces.province for provinces in provincesList"></select>
                                                 </div>
                                                 <div class="form-group area">
-                                                    <select class="form-control" id="city1"></select>
+													<select class="form-control select-sm"  ng-model="entity.cityId" ng-options="cities.cityid as cities.city for cities in citiesList"></select>
                                                 </div>
                                                 <div class="form-group area">
-                                                    <select class="form-control" id="district1"></select>
+													<select class="form-control select-sm" ng-model="entity.townId" ng-options="areas.areaid as areas.area for areas in areasList"></select>
                                                 </div>
                                             </div>
                                             </div>									 
@@ -272,25 +273,25 @@ $(function(){
                                         <div class="control-group">
                                             <label class="control-label">详细地址：</label>
                                             <div class="controls">
-                                                <input type="text" class="input-large">
+                                                <input type="text" class="input-large" ng-model="entity.address">
                                             </div>
                                         </div>
                                         <div class="control-group">
                                             <label class="control-label">联系电话：</label>
                                             <div class="controls">
-                                                <input type="text" class="input-medium">
+                                                <input type="text" class="input-medium" ng-model="entity.mobile">
                                             </div>
                                         </div>
                                         <div class="control-group">
                                             <label class="control-label">邮箱：</label>
                                             <div class="controls">
-                                                <input type="text" class="input-medium">
+                                                <input type="text" class="input-medium" ng-model="entity.notes">
                                             </div>
                                         </div>
                                         <div class="control-group">
                                             <label class="control-label">地址别名：</label>
                                             <div class="controls">
-                                                <input type="text" class="input-medium">
+                                                <input type="text" class="input-medium" ng-model="entity.alias">
                                             </div>
                                             <div class="othername">
                                                 建议填写常用地址：<a href="#" class="sui-btn btn-default">家里</a>　<a href="#" class="sui-btn btn-default">父母家</a>　<a href="#" class="sui-btn btn-default">公司</a>
@@ -302,7 +303,7 @@ $(function(){
                                         
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" data-ok="modal" class="sui-btn btn-primary btn-large">确定</button>
+                                        <button type="button" data-ok="modal" class="sui-btn btn-primary btn-large" ng-click="save()">确定</button>
                                         <button type="button" data-dismiss="modal" class="sui-btn btn-default btn-large">取消</button>
                                     </div>
                                 </div>
