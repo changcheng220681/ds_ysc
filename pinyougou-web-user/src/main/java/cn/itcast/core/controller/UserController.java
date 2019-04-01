@@ -51,8 +51,6 @@ public class UserController {
 
             try {
                 //if(null user.getUsername())
-
-
                 userService.add(user,smscode);
                 return new Result(true,"注册成功");
             } catch (RuntimeException e) {
@@ -61,8 +59,6 @@ public class UserController {
                 e.printStackTrace();
                 return new Result(false,"注册失败");
             }
-
-
 
     }
     //查询用户订单详情表
@@ -77,7 +73,17 @@ public class UserController {
         return orderVoList;
     }
 
-    //添加个人信息
+    //修改个人信息
+    @RequestMapping("update")
+    public Result update(@RequestBody User user){
+        try {
+            return new Result(true,"修改成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result(false,"修改失败");
+        }
+    }
+
 
     //查询一个人信息
 }
