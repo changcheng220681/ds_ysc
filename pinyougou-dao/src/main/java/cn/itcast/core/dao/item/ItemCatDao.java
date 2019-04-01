@@ -20,6 +20,8 @@ public interface ItemCatDao {
 
     ItemCat selectByPrimaryKey(Long id);
 
+    List<ItemCat> selectByParentId(@Param("id") Long id);
+
     int updateByExampleSelective(@Param("record") ItemCat record, @Param("example") ItemCatQuery example);
 
     int updateByExample(@Param("record") ItemCat record, @Param("example") ItemCatQuery example);
