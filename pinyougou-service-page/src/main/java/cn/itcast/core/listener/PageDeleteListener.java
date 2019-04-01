@@ -1,15 +1,16 @@
 package cn.itcast.core.listener;
 
 import cn.itcast.core.service.StaticPageService;
-import org.apache.activemq.command.ActiveMQTextMessage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
-import javax.jms.TextMessage;
+import javax.jms.ObjectMessage;
 
-public class PageListener implements MessageListener {
+
+public class PageDeleteListener implements MessageListener{
 
     @Autowired
     private StaticPageService staticPageService;
@@ -17,13 +18,11 @@ public class PageListener implements MessageListener {
 
     @Override
     public void onMessage(Message message) {
-        ActiveMQTextMessage amt=(ActiveMQTextMessage)message;
+        ObjectMessage objectMessage=(ObjectMessage)message;
         try {
-            System.out.println(amt.getText());
-            Long id = Long.parseLong(amt.getText());
-            System.out.println(id);
-            staticPageService.pageDetail(id);
-
+            Long[] ids= (Long[]) objectMessage.getObject();
+            boolean b = staticPageService.deleteItemHtml(ids);
+            System.out.println("执行的结果:"+b);
         } catch (JMSException e) {
             e.printStackTrace();
         }

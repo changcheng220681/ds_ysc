@@ -2,6 +2,6 @@ package cn.itcast.core.service;
 
 public interface StaticPageService {
 
-
-    public void index(Long id);
+    void pageDetail(Long id);
+    boolean deleteItemHtml(Long[] ids);
 }
