@@ -38,5 +38,8 @@ app.controller('userController' ,function($scope,$controller   ,userService){
 			}
 		);		
 	}
+	$scope.submitOrder=function (id) {
+		userService.submitOrder(id).success()
+    }
 	
 });	

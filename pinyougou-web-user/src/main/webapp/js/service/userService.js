@@ -33,5 +33,9 @@ app.service('userService',function($http){
 	this.sendCode=function(phone){
 		return $http.get('../user/sendCode.do?phone='+phone);
 	}
+    //提交订单
+    this.submitOrder=function(id){
+        return $http.post('order/findOrderId.do?id='+id);
+    }
 	
 });

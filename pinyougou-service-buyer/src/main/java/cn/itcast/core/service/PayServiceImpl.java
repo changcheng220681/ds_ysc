@@ -39,7 +39,12 @@ public class PayServiceImpl implements PayService {
     public Map<String, String> createNative(String name) {
 
         PayLog payLog = (PayLog) redisTemplate.boundHashOps("payLog").get(name);
+        return getWXPayStringMap(payLog);
 
+
+    }
+
+    private Map<String, String> getWXPayStringMap(PayLog payLog) {
         //浏览器 发出Http请求  响应
 
         //java代码完成一次 （浏览器发出请求 响应）
@@ -53,8 +58,6 @@ public class PayServiceImpl implements PayService {
         HttpClient httpClient = new HttpClient(url);
         //本次请求是https协议
         httpClient.setHttps(true);
-
-
 
 
         //入参：
@@ -79,7 +82,7 @@ public class PayServiceImpl implements PayService {
         param.put("out_trade_no", payLog.getOutTradeNo());
 //        标价币种	fee_type	否	String(16)	CNY	符合ISO 4217标准的三位字母代码，默认人民币：CNY，详细列表请参见货币类型
 //        标价金额	total_fee	是	Int	88	订单总金额，单位为分，详见支付金额
-       /* param.put("total_fee", String.valueOf(payLog.getTotalFee()));*/
+        /* param.put("total_fee", String.valueOf(payLog.getTotalFee()));*/
         param.put("total_fee", "1");
 //        终端IP	spbill_create_ip	是	String(64)	123.12.12.123	支持IPV4和IPV6两种格式的IP地址。调用微信支付API的机器IP
         param.put("spbill_create_ip", "127.0.0.1");
@@ -94,7 +97,6 @@ public class PayServiceImpl implements PayService {
         param.put("notify_url", "http://itcast.cn");
 //        交易类型	trade_type	是	String(16)	JSAPI
         param.put("trade_type", "NATIVE");
-
 
 
 //        签名	sign	是	String(32)	C380BEC2BFD727A4B6845133519F3AD6	通过签名算法计算得出的签名值，详见签名生成算法

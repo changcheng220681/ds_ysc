@@ -294,4 +294,14 @@ public class GoodsServiceImpl implements GoodsService {
 
         }
     }
+
+    @Override
+    public List<Item> findItemListByGoodsIdListAndStatus(Long[] goodsIds, String status) {
+        return null;
+    }
+
+    @Override
+    public void goodsIsMarkTable(Long[] ids, String status) {
+
+    }
 }
