@@ -21,7 +21,11 @@ app.controller("contentController",function($scope,contentService){
 		location.href="http://localhost:9003/search.html#?keywords="+$scope.keywords;
 	}
 
-
+	$scope.findByParentId = function (parentId) {
+		itemCatService.findByParentId(parentId).success(function (response) {
+			$scope.list=response;
+        });
+    }
 
 	
 });

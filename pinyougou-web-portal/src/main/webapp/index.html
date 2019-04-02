@@ -23,7 +23,7 @@
    
 </head>
 
-<body ng-app="pinyougou" ng-controller="contentController" ng-init="findByCategoryId(1)">
+<body ng-app="pinyougou" ng-controller="contentController" ng-init="findByParentId(0)">
 	<!-- 头部栏位 -->
 	<!--页面顶部-->
 <div id="nav-bottom">
@@ -135,13 +135,40 @@
 
 
 	<!--列表-->
+	<!--<div class="sort">
+		<div class="py-container">
+			<div class="yui3-g SortList ">
+		<div class="yui3-u Left all-sort-list">
+		<div class="all-sort-list2">
+			<div class="item {{flag?'hover':''}}" ng-repeat="itemCat1 in list" ng-mouseenter="flag=true"
+				 ng-mouseleave="flag=false">
+				<h3><a href="">{{itemCat1.name}}</a></h3>
+				&lt;!&ndash;通过三元表达式确定是显示还是隐藏&ndash;&gt;
+				<div class="item-list clearfix" style="display: {{flag?'block':'none'}}">
+					<div class="subitem">
+						&lt;!&ndash;遍历2级分类&ndash;&gt;
+						<dl class="fore1" ng-repeat="itemCat2 in itemCat1.itemCat02List">
+							<dt><a href="">{{itemCat2.name}}</a></dt>
+							<dd>
+								&lt;!&ndash;遍历3级分类&ndash;&gt;
+								<em ng-repeat="itemCat3 in itemCat2.itemCat03List">
+									<a href="">{{itemCat3.name}}</a>
+								</em>
+							</dd>
+						</dl>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>-->
 	<div class="sort">
 		<div class="py-container">
 			<div class="yui3-g SortList ">
 				<div class="yui3-u Left all-sort-list">
 					<div class="all-sort-list2">
 						<div class="item bo">
-							<h3><a href="">图书、音像、数字商品</a></h3>
+							<h3><a href="">图书、音像、数字商品1</a></h3>
 							<div class="item-list clearfix">
 								<div class="subitem">
 									<dl class="fore1">
@@ -176,7 +203,7 @@
 							</div>
 						</div>
 						<div class="item">
-							<h3><a href="">家用电器</a></h3>
+							<h3><a href="">家用电器2</a></h3>
 							<div class="item-list clearfix">
 								<div class="subitem">
 									<dl class="fore1">
@@ -526,27 +553,27 @@
 						</div>
 					</div>
 				</div>
-				
+
 				<div class="yui3-u Center banerArea">
 					<!--banner轮播-->
 					<div id="myCarousel" data-ride="carousel" data-interval="4000" class="sui-carousel slide">
-					  <ol class="carousel-indicators">
-					    <!-- <li data-target="#myCarousel" data-slide-to="0" class="active"></li> -->
-					    <li data-target="#myCarousel" data-slide-to="{{$index}}" class="{{$index==0?'active':''}}" ng-repeat="item in contentList[1]"></li>
-					  </ol>
-					  <div class="carousel-inner">
-					   <!--  <div class="active item">
-					    <a href="http://baidu2.wypxj.com/">
-					    	<img src="img/banner1.jpg"  />
-					      </a>
-					    </div> -->
-					    <div class="{{$index==0?'active':''}} item" ng-repeat="item in contentList[1]">
-					    <a href="{{item.url}}">
-					    	<img src="{{item.pic}}"  width="730" height="454"/>
-					      </a>
-					    </div>
-					   	
-					  </div><a href="#myCarousel" data-slide="prev" class="carousel-control left">‹</a><a href="#myCarousel" data-slide="next" class="carousel-control right">›</a>
+						<ol class="carousel-indicators">
+							<!-- <li data-target="#myCarousel" data-slide-to="0" class="active"></li> -->
+							<li data-target="#myCarousel" data-slide-to="{{$index}}" class="{{$index==0?'active':''}}" ng-repeat="item in contentList[1]"></li>
+						</ol>
+						<div class="carousel-inner">
+							<!--  <div class="active item">
+                             <a href="http://baidu2.wypxj.com/">
+                                 <img src="img/banner1.jpg"  />
+                               </a>
+                             </div> -->
+							<div class="{{$index==0?'active':''}} item" ng-repeat="item in contentList[1]">
+								<a href="{{item.url}}">
+									<img src="{{item.pic}}"  width="730" height="454"/>
+								</a>
+							</div>
+
+						</div><a href="#myCarousel" data-slide="prev" class="carousel-control left">‹</a><a href="#myCarousel" data-slide="next" class="carousel-control right">›</a>
 					</div>
 				</div>
 				<div class="yui3-u Right">
