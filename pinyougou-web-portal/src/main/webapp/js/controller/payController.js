@@ -7,18 +7,12 @@ app.controller('payController' ,function($scope ,$location,payService){
 
 		payService.createNative().success(
 			function(response){ // 返回值：Map  K code_url V:url  微信地址 微信服务器给 weixi:// 自定义协议
-
 				//订单ID
 				//金额
 				//二维码 value值
-
-				
 				//显示订单号和金额
 				$scope.money= (response.total_fee/100).toFixed(2);
 				$scope.out_trade_no=response.out_trade_no;
-
-
-				
 				//生成二维码
 				 var qr=new QRious({
 					    element:document.getElementById('qrious'),
@@ -26,9 +20,6 @@ app.controller('payController' ,function($scope ,$location,payService){
 						value:response.code_url,
 						level:'H'
 			     });
-
-
-
                 queryPayStatus();//调用查询
 				
 			}	

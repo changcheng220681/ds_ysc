@@ -3,6 +3,8 @@ package cn.itcast.core.controller;
 import cn.itcast.common.utils.PhoneFormatCheckUtils;
 import cn.itcast.core.pojo.order.Order;
 import cn.itcast.core.pojo.user.User;
+import cn.itcast.core.service.OrderService;
+import cn.itcast.core.service.PayLogService;
 import cn.itcast.core.service.UserService;
 import com.alibaba.dubbo.config.annotation.Reference;
 import entity.Result;
@@ -27,6 +29,8 @@ public class UserController {
 
     @Reference
     private UserService userService;
+    @Reference
+    private PayLogService payLogService;
     //发送验证码
     @RequestMapping("/sendCode")
     public Result sendCode(String phone){
@@ -85,5 +89,15 @@ public class UserController {
     }
 
 
-    //查询一个人信息
+    //提交支付一个订单信息
+    @RequestMapping("submitOrder")
+    public Result submitOrder(Long orderId){
+        try {
+            payLogService.add(orderId);
+            return new Result(true,"修改成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result(false,"修改失败");
+        }
+    }
 }

@@ -2,13 +2,17 @@ package cn.itcast.core.service;
 
 import cn.itcast.common.utils.HttpClient;
 import cn.itcast.common.utils.IdWorker;
+import cn.itcast.core.dao.log.PayLogDao;
+import cn.itcast.core.dao.order.OrderDao;
 import cn.itcast.core.pojo.log.PayLog;
+import cn.itcast.core.pojo.order.Order;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.github.wxpay.sdk.WXPayUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -29,6 +33,10 @@ public class PayServiceImpl implements PayService {
     private String partnerkey;
     @Autowired
     private IdWorker idWorker;
+    @Autowired
+    private PayLogDao payLogDao;
+    @Autowired
+    private OrderDao orderDao;
 
     @Autowired
     private RedisTemplate redisTemplate;
@@ -165,6 +173,22 @@ public class PayServiceImpl implements PayService {
 
 
         return null;
+    }
+
+    @Override
+    public void updatePayLog(Map<String, String> map) {
+        PayLog payLog = new PayLog();
+        payLog.setPayTime(new Date());
+        payLog.setTransactionId(map.get("transaction_id"));
+        payLog.setTradeState("1");
+        payLogDao.updateByPrimaryKeySelective(payLog);
+        String[] orderList = payLog.getOrderList().split(",");
+        for (String s : orderList) {
+            Order order = orderDao.selectByPrimaryKey(Long.valueOf(s));
+            order.setStatus("2");
+            order.setUpdateTime(new Date());
+            orderDao.updateByPrimaryKeySelective(order);
+        }
     }
 
 }

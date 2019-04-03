@@ -35,7 +35,7 @@ app.service('userService',function($http){
 	}
     //提交订单
     this.submitOrder=function(id){
-        return $http.post('order/findOrderId.do?id='+id);
+        return $http.post('../user/findOrderId.do?id='+id);
     }
 	
 });
