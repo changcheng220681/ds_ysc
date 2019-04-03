@@ -38,8 +38,24 @@ app.controller('userController' ,function($scope,$controller   ,userService){
 			}
 		);		
 	}
-	$scope.submitOrder=function (id) {
-		userService.submitOrder(id).success()
+    //保存订单
+    $scope.submitOrder=function(id){
+        cartService.submitOrder(id).success(
+            function(response){
+                //alert(response.message);
+                if(response.flag){
+                    //页面跳转
+                    if($scope.order.paymentType=='1'){//如果是微信支付，跳转到支付页面
+                        location.href="pay.html";
+                    }else{//如果货到付款，跳转到提示页面
+                        location.href="paysuccess.html";
+                    }
+                }else{
+                    alert(response.message);	//也可以跳转到提示页面
+                }
+
+            }
+        );
     }
 	
 });	

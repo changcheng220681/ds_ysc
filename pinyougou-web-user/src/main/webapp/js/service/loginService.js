@@ -11,6 +11,9 @@ app.service('loginService',function($http){
     this.update=function(entity){
         return $http.post("../user/update.do",entity);
     }
+    this.submitOrder=function(orderId){
+		return $http.get("../user/submitOrder.do?orderId="+orderId);
+	}
 
 
 });

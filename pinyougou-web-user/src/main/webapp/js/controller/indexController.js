@@ -26,9 +26,9 @@ app.controller('indexController', function ($scope, loginService) {
     $scope.update = function () {
         loginService.update($scope.entity).success(
             function (response) {
-                if(response.flag){
+                if (response.flag) {
                     alert(response.message);
-                }else {
+                } else {
                     alert(response.message);
                 }
             }
@@ -37,27 +37,35 @@ app.controller('indexController', function ($scope, loginService) {
     }
     //地区三级查询
     // 查询一级分类列表:
-    $scope.selectItemCat1List = function(){
+    $scope.selectItemCat1List = function () {
         //商品分类服务层  查询所有商品分类（父ID为0）
-        itemCatService.findByParentId(0).success(function(response){//List<ItemCat>
+        itemCatService.findByParentId(0).success(function (response) {//List<ItemCat>
             $scope.itemCat1List = response;//List<ItemCat>
         });
     }
 
     // 查询二级分类列表:
-    $scope.$watch("entity.goods.category1Id",function(newValue,oldValue){
-        itemCatService.findByParentId(newValue).success(function(response){
+    $scope.$watch("entity.goods.category1Id", function (newValue, oldValue) {
+        itemCatService.findByParentId(newValue).success(function (response) {
             $scope.itemCat2List = response;
         });
     });
 
     // 查询三级分类列表:
-    $scope.$watch("entity.goods.category2Id",function(newValue,oldValue){
-        itemCatService.findByParentId(newValue).success(function(response){
+    $scope.$watch("entity.goods.category2Id", function (newValue, oldValue) {
+        itemCatService.findByParentId(newValue).success(function (response) {
             $scope.itemCat3List = response;
         });
     });
 
-
+    $scope.submitOrder = function (orderId) {
+        loginService.submitOrder(orderId).success(function (response) {
+            if (response.flag) {
+                location.href="pay.html";
+            } else {
+                alert(response.message);
+            }
+        })
+    }
 })
 ;
