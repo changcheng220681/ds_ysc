@@ -11,6 +11,7 @@ import cn.itcast.core.pojo.order.Order;
 import cn.itcast.core.pojo.order.OrderItem;
 import com.alibaba.dubbo.config.annotation.Service;
 import entity.Cart;
+import entity.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.transaction.annotation.Transactional;
@@ -147,5 +148,10 @@ public class OrderServiceImpl implements OrderService {
         //购物车
         redisTemplate.boundHashOps("cart").delete(order.getUserId());
 
+    }
+
+    @Override
+    public PageResult search(Integer page, Integer rows, Order order) {
+        return null;
     }
 }

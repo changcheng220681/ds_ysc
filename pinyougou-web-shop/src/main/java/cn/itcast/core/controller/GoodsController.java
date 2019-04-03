@@ -70,7 +70,7 @@ public class GoodsController {
 
 
 
-    @Autowired
+   /* @Autowired
     private JmsTemplate jmsTemplate;
 
     @Autowired
@@ -118,6 +118,6 @@ public class GoodsController {
             e.printStackTrace();
             return new Result(false,"商品上下架失败");
         }
-    }
+    }*/
 
 }

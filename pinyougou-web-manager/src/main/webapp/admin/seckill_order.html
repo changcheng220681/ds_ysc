@@ -23,16 +23,16 @@
 
     <script type="text/javascript" src="../js/base_pagination.js"></script>
     <script type="text/javascript" src="../js/controller/baseController.js"></script>
-    <script type="text/javascript" src="../js/controller/seckillgoodsController.js"></script>
-    <script type="text/javascript" src="../js/service/seckillgoodsService.js"></script>
+    <script type="text/javascript" src="../js/controller/seckillorderController.js"></script>
+    <script type="text/javascript" src="../js/service/seckillorderService.js"></script>
 
 </head>
 
-<body class="hold-transition skin-red sidebar-mini" ng-app="pinyougou" ng-controller="seckillgoodsController" ng-init="searchEntity={auditStatus:'0'}">
+<body class="hold-transition skin-red sidebar-mini" ng-app="pinyougou" ng-controller="seckillorderController">
 <!-- .box-body -->
 
 <div class="box-header with-border">
-    <h3 class="box-title">秒杀审核</h3>
+    <h3 class="box-title">秒杀订单查询</h3>
 </div>
 
 <div class="box-body">
@@ -45,18 +45,16 @@
             <div class="form-group form-inline">
                 <div class="btn-group">
                     <button type="button" ng-click="dele()" class="btn btn-default" title="删除" ><i class="fa fa-trash-o"></i> 删除</button>
-                    <button type="button" ng-click="updateStatus('1')" class="btn btn-default" title="审核通过" ><i class="fa fa-check"></i> 审核通过</button>
-                    <button type="button" ng-click="updateStatus('2')" class="btn btn-default" title="驳回" ><i class="fa fa-ban"></i> 驳回</button>
                     <button type="button" class="btn btn-default" title="刷新" ><i class="fa fa-refresh"></i> 刷新</button>
                 </div>
             </div>
         </div>
-        <div class="box-tools pull-right">
+        <!--<div class="box-tools pull-right">
             <div class="has-feedback">
                 商品名称：<input >
                 <button class="btn btn-default" >查询</button>
             </div>
-        </div>
+        </div>-->
         <!--工具栏/-->
 
         <!--数据列表-->
@@ -66,35 +64,36 @@
                 <th class="" style="padding-right:0px">
                     <input id="selall" type="checkbox" class="icheckbox_square-blue">
                 </th>
-                <th class="sorting_asc">商品ID</th>
-                <th class="sorting">标题</th>
-                <th class="sorting">商品价格</th>
-                <th class="sorting">秒杀价格</th>
-                <th class="sorting">开始时间</th>
-                <th class="sorting">结束时间</th>
-
-                <th class="sorting">描述</th>
-                <th class="sorting">状态</th>
+                <th class="sorting_asc">ID</th>
+                <th class="sorting_asc">秒杀商品ID</th>
+                <th class="sorting">支付金额</th>
+                <th class="sorting">用户</th>
+                <th class="sorting">商家</th>
+                <th class="sorting">创建时间</th>
+                <th class="sorting">支付时间</th>
+                <th class="sorting">交易流水</th>
+                <!--<th class="sorting">状态</th>-->
                 <th class="text-center">操作</th>
             </tr>
             </thead>
             <tbody>
             <tr ng-repeat="entity in list">
                 <td><input ng-click="updateSelection($event,entity.id)" type="checkbox"></td>
-                <td>{{entity.goodsId}}</td>
-                <td>{{entity.title}}</td>
-                <td>{{entity.price}}</td>
-                <td>{{entity.costPrice}}</td>
-                <td>{{entity.startTime}}</td>
-                <td>{{entity.endTime}}</td>
-                <td>{{entity.introduction}}</td>
+                <td>{{entity.id}}</td>
+                <td>{{entity.seckillId}}</td>
+                <td>{{entity.money}}</td>
+                <td>{{entity.userId}}</td>
+                <td>{{entity.sellerId}}</td>
+                <td>{{entity.createTime}}</td>
+                <td>{{entity.payTime}}</td>
+                <td>{{entity.transactionId}}</td>
 
-                <td>
+                <!--<td>
 		                                  	<span>
 		                                  		{{status[entity.status]}}
 		                                  	</span>
 
-                </td>
+                </td>-->
                 <td class="text-center">
                     <button type="button" class="btn bg-olive btn-xs" >详情</button>
                 </td>

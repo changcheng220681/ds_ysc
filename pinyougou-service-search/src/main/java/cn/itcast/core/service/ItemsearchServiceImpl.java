@@ -20,7 +20,7 @@ import java.util.*;
  */
 @SuppressWarnings("all")
 @Service
-public class ItemsearchServiceImpl implements ItemsearchService {
+public class ItemsearchServiceImpl implements ItemSearchService {
 
     //索引库
     @Autowired
@@ -54,6 +54,22 @@ public class ItemsearchServiceImpl implements ItemsearchService {
 
         return resultMap;
     }
+
+    @Override
+    public void importList(List<Item> list) {
+
+    }
+
+    @Override
+    public void deleteSearch(List goodsId) {
+
+    }
+
+    @Override
+    public void importSolrDbById(Long id) {
+
+    }
+
 
     //2:品牌结果集
     //3:规格结果集
